@@ -11,6 +11,8 @@ module API::V2
     content_type   :json, 'application/json'
     default_format :json
 
+    use API::V2::CORS::Middleware
+
     mount Admin::Base      => '/admin'
     mount Identity::Base   => '/identity'
     mount Resource::Base   => '/resource'
