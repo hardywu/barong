@@ -5,6 +5,7 @@ module API::V2
     module Utils
 
       def session
+        request.session_options[:expire_after] = session_expire_time
         request.session
       end
 
@@ -106,6 +107,12 @@ module API::V2
           user: user.as_json_for_event_api,
           token: token
         )
+      end
+
+      private
+
+      def session_expire_time
+        ENV.fetch('SESSION_EXPIRE_TIME', '30').to_i.minutes
       end
     end
   end
